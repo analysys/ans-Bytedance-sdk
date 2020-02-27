@@ -4,7 +4,7 @@
 
 This is the official Bytedance SDK for Analysys.
 
-# Bytedance SDK目录说明：
+# 字节跳动小程序 SDK目录说明：
 
 * SDK——SDK文件
 * src——SDK源码
