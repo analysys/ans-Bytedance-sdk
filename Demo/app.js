@@ -6,6 +6,8 @@ AnalysysAgent.uploadURL = 'https://sdk.analysys.cn'
 AnalysysAgent.autoShare = true;
 // AnalysysAgent.autoProfile = false;
 AnalysysAgent.auto = true;
+AnalysysAgent.autoTrack = true;
+
 /**
  * @file app.js
  * @author tt

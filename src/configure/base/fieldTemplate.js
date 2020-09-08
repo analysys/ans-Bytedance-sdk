@@ -44,7 +44,6 @@ export default {
             "$session_id",
             "$is_time_calibrated",
             "$is_first_time",   //首次访问，只在startUp
-            "$referrer",
             "$scene"
         ]
     },
@@ -120,6 +119,18 @@ export default {
             "$model",
             "$os",
             "$session_id"
+        ]
+    },
+    "$userClick": {
+        "xcontext": [
+            "$element_content",
+            "$element_id",
+            "$element_type",
+            "$element_name",
+            "$url",
+            "$is_first_day",
+            "$session_id",
+            "$is_time_calibrated"
         ]
     }
 }

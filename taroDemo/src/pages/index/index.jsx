@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import './index.css'
 // const app = Taro.getApp();
 
-let AnalysysAgent = my.AnalysysAgent
+let AnalysysAgent = tt.AnalysysAgent
 
 export default class Index extends Component {
 

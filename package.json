@@ -1,56 +1,56 @@
 {
-  "name": "opensource-bytedancemini",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "rollup --config ./build/bytedance/rollup.config.bytedance.js && rollup --config ./build/encryption/rollup.config.encryption.js",
-    "byt": "rollup --config ./build/bytedance/rollup.config.bytedance.js --watch",
-    "encryption": "rollup --config ./build/encryption/rollup.config.encryption.js --watch",
-    "test": "jest",
-    "cover": "jest --coverage"
-  },
-  "jest": {
-    "setupFiles": [
-      "./unitTest/bytedance.js"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://git.analysys.cn/analysys-sdk/openSource-Bytedancemini.git"
-  },
-  "author": "zhangyufei@analysys.com.cn",
-  "license": "ISC",
-  "dependencies": {
-    "ali": "^1.1.5",
-    "crypto-js": "^3.1.9-1",
-    "jest": "^24.9.0",
-    "livereload": "^0.7.0",
-    "npm-run-all": "^4.1.2",
-    "pako": "^1.0.6"
-  },
-  "devDependencies": {
-    "@tarojs/cli": "^1.3.18",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "base64-js": "^1.3.0",
-    "js-base64": "^2.4.9",
-    "miniprogram-simulate": "^1.0.8",
-    "query-string": "^5.1.1",
-    "rollup": "^1.27.3",
-    "rollup-plugin-babel": "^3.0.4",
-    "rollup-plugin-commonjs": "^8.4.1",
-    "rollup-plugin-eslint": "^4.0.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-terser": "^5.1.2",
-    "rollup-plugin-uglify": "^6.0.4",
-    "rollup-watch": "^4.3.1",
-    "vue-cli": "^2.9.6",
-    "zlibjs": "^0.3.1"
-  }
+    "name": "opensource-bytedancemini",
+    "version": "4.3.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "rollup --config ./build/bytedance/rollup.config.bytedance.js && rollup --config ./build/encryption/rollup.config.encryption.js",
+        "byt": "rollup --config ./build/bytedance/rollup.config.bytedance.js --watch",
+        "encryption": "rollup --config ./build/encryption/rollup.config.encryption.js --watch",
+        "test": "jest",
+        "cover": "jest --coverage"
+    },
+    "jest": {
+        "setupFiles": [
+            "./unitTest/bytedance.js"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://git.analysys.cn/analysys-sdk/openSource-Bytedancemini.git"
+    },
+    "author": "zhangyufei@analysys.com.cn",
+    "license": "ISC",
+    "dependencies": {
+        "ali": "^1.1.5",
+        "crypto-js": "^3.1.9-1",
+        "jest": "^24.9.0",
+        "livereload": "^0.7.0",
+        "npm-run-all": "^4.1.2",
+        "pako": "^1.0.6"
+    },
+    "devDependencies": {
+        "@tarojs/cli": "^1.3.18",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^8.0.6",
+        "babel-plugin-external-helpers": "^6.22.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015-rollup": "^3.0.0",
+        "base64-js": "^1.3.0",
+        "js-base64": "^2.4.9",
+        "miniprogram-simulate": "^1.0.8",
+        "query-string": "^5.1.1",
+        "rollup": "^1.27.3",
+        "rollup-plugin-babel": "^3.0.4",
+        "rollup-plugin-commonjs": "^8.4.1",
+        "rollup-plugin-eslint": "^4.0.0",
+        "rollup-plugin-json": "^2.3.0",
+        "rollup-plugin-node-resolve": "^3.3.0",
+        "rollup-plugin-replace": "^2.0.0",
+        "rollup-plugin-terser": "^5.1.2",
+        "rollup-plugin-uglify": "^6.0.4",
+        "rollup-watch": "^4.3.1",
+        "vue-cli": "^2.9.6",
+        "zlibjs": "^0.3.1"
+    }
 }

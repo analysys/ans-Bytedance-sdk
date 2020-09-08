@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import './third.css'
 // const app = Taro.getApp();
 
-let AnalysysAgent = my.AnalysysAgent
+let AnalysysAgent = tt.AnalysysAgent
 
 export default class Index extends Component {
 
@@ -11,17 +11,17 @@ export default class Index extends Component {
         navigationBarTitleText: '第三页'
     }
 
-    componentWillMount() {
+    componentWillMount () {
         // AnalysysAgent.pageView('第二页')
     }
 
-    componentDidMount() { }
+    componentDidMount () { }
 
-    componentWillUnmount() { }
+    componentWillUnmount () { }
 
-    componentDidShow() { }
+    componentDidShow () { }
 
-    componentDidHide() { }
+    componentDidHide () { }
     pageView = () => {
         let pageInfo = {
             "commodityName": "iPhone",
@@ -113,7 +113,7 @@ export default class Index extends Component {
         let DistinctId = AnalysysAgent.getDistinctId()
         console.log(DistinctId)
     }
-    render() {
+    render () {
         return (
             <View class="container">
                 <View class="header">

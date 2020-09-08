@@ -17,8 +17,11 @@ function getPackageName () {
 
 function getPath () {
     let pathArray = getCurrentPages()
-    let path = pathArray[pathArray.length - 1].__route__
-    return path
+    // 有时pathArray 为空数组  []
+    if (pathArray.length > 0) {
+        let path = pathArray[pathArray.length - 1].__route__
+        return path
+    }
 }
 
 function getTitle () {
@@ -27,7 +30,7 @@ function getTitle () {
 
 function getReferer () {
     let pathArray = getCurrentPages()
-    if (pathArray.length > 1) {
+    if (pathArray.length > 1 && pathArray[pathArray.length - 2]) {
         return pathArray[pathArray.length - 2].__route__
     }
     return getScene()

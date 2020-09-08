@@ -27,6 +27,8 @@ AnalysysAgent.encryptType = 2;
 AnalysysAgent.autoShare = true;
 AnalysysAgent.allowTimeCheck = true;
 AnalysysAgent.maxDiffTimeInterval = 1;
+AnalysysAgent.autoTrack = true;
+
 
 class App extends Component {
     config = {

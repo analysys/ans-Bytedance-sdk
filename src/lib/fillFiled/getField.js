@@ -215,7 +215,8 @@ function utm_campaign () {
 
 // 分享相关信息
 function share_level () {
-    return baseConfig.base.$share_level;
+    let shareLevel = parseInt(baseConfig.base.$share_level)
+    return (shareLevel === 0 || shareLevel) ? shareLevel : ''
 }
 
 function share_path () {
@@ -224,6 +225,29 @@ function share_path () {
 
 function share_id () {
     return baseConfig.base.$share_id
+}
+
+// 全埋点相关
+function getEleContent () {
+    let userObj = baseConfig.base.userObj;
+    let userPageObj = baseConfig.base.userPageObj;  // tab点击获取到的参数不一样，单独存放
+    if (userObj.currentTarget) {
+        return (userObj.currentTarget && userObj.currentTarget.dataset && userObj.currentTarget.dataset.content || "") + ""
+    } else {
+        return (userPageObj.text || "") + ""
+    }
+}
+function getEleId () {
+    let userObj = baseConfig.base.userObj;
+    return (userObj.currentTarget && userObj.currentTarget.id || "") + ""
+}
+function getEleType () {
+    let userObj = baseConfig.base.userObj;
+    return (userObj.currentTarget && userObj.currentTarget.dataset && userObj.currentTarget.dataset.type || "") + ""
+}
+function getEleName () {
+    let userObj = baseConfig.base.userObj;
+    return (userObj.currentTarget && userObj.currentTarget.dataset && userObj.currentTarget.dataset.name || "") + ""
 }
 
 
@@ -270,5 +294,9 @@ export {
     utm_campaign,
     share_level,
     share_path,
-    share_id
+    share_id,
+    getEleContent,
+    getEleId,
+    getEleType,
+    getEleName
 }

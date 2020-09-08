@@ -3,12 +3,14 @@ import Util from './lib/common/index';
 import { errorLog, successLog } from './lib/printLog/index';
 import { resetCode } from './lib/fillFiled/index';
 import { API } from './API/index';
+import { userClick } from './API/template/userClick'
+import { userClickPage } from './API/template/userClickPage'
+import { UTM } from './lib/fillFiled/UTM'
 
 import PublicApp from './lib/common/publicApp.js'
+let setPublicApp = PublicApp.setPublicApp
 let getPublicApp = PublicApp.getPublicApp
 
-baseConfig.isStartUp = true;
-baseConfig.base.auto = false;
 
 class Ark_PASS_SDK extends API {
     constructor() {
@@ -47,6 +49,20 @@ class Ark_PASS_SDK extends API {
     }
     get debugMode () {
         return baseConfig.base.$debug;
+    }
+    set auto (AUTO) {
+        resetCode();
+        if (Util.paramType(AUTO) !== 'Boolean') {
+            baseConfig.status.key = "auto";
+            baseConfig.status.errorCode = "60003";
+            baseConfig.status.value = AUTO;
+            errorLog();
+            return;
+        }
+        baseConfig.base.auto = AUTO;
+    }
+    get auto () {
+        return baseConfig.base.auto;
     }
     set uploadURL (ServerUrl) {
         resetCode();
@@ -143,14 +159,123 @@ class Ark_PASS_SDK extends API {
     get maxDiffTimeInterval () {
         return baseConfig.base.maxDiffTimeInterval;
     }
+    set autoTrack (autoTrackStatus) {
+        resetCode();
+        if (Util.paramType(autoTrackStatus) !== "Boolean") {
+            baseConfig.status.key = "autoTrack";
+            baseConfig.status.errorCode = "60003";
+            baseConfig.status.value = autoTrackStatus;
+            errorLog();
+            return;
+        }
+        baseConfig.base.autoTrack = autoTrackStatus;
+    }
+    get autoTrack () {
+        return baseConfig.base.autoTrack;
+    }
 }
 
+// 原有生命周周期的封装 ，不能影响小程序原有生命周期
+function appFn (obj, Fn, toFn) {
+    if (obj[Fn]) {
+        let oldFn = obj[Fn];
+        if (Fn === "onShareAppMessage") {
+            obj[Fn] = function (t) {
+                // return toFn(oldFn());
+                return toFn(oldFn.call(this, t));
+            }
+        } else {
+            obj[Fn] = function (t) {
+                var b = oldFn.apply(this, arguments);
+                toFn(t);
+                return b;
+            }
+        }
+    } else {
+        if (Fn !== "onShareAppMessage") {
+            obj[Fn] = function (t) {
+                toFn(t);
+            }
+        }
+    }
+}
 
 let ark_sdk = new Ark_PASS_SDK();
-delete ark_sdk.startUp;
-
 let publicApp = getPublicApp()
 if (publicApp) {
     publicApp.AnalysysAgent = ark_sdk;
 }
+// wx.AnalysysAgent = ark_sdk;
+
+// AnalysysAgent 对象的添加。  App 为小程序的原生方法 注册小程序使用 全局只有一个; 
+// App 赋值为 APP ， 而在小程序的app.js 中会对 App方法进行调用，之后我们再把原有的App（赋值为APP）调用一遍；
+let APP = App;
+App = function (app) {
+    // UTM 放在onshow ,保证小程序未被杀死，参数更改情况下重新获取。
+    appFn(app, 'onShow', function setOptions (options) {
+        let option = options
+        if (options && options._status == "create") {
+            setPublicApp(options)
+            option = options.options
+        }
+        // 存在参数的 utm 赋值
+        if (option.query && Object.keys(option.query).length > 0) {
+            if (option.query.utm_campaign && option.query.utm_medium && option.query.utm_source) {
+                UTM.utm_campaign_id = option.query.campaign_id;
+                UTM.utm_campaign = option.query.utm_campaign;
+                UTM.utm_content = option.query.utm_content;
+                UTM.utm_medium = option.query.utm_medium;
+                UTM.utm_source = option.query.utm_source;
+                UTM.utm_term = option.query.utm_term;
+            }
+            // 关于分享的赋值引用
+            if (option.query.share_id && option.query.share_level && option.query.share_path) {
+                baseConfig.base.$share_id = option.query.share_id;
+                baseConfig.base.$share_level = option.query.share_level;
+                baseConfig.base.$share_path = decodeURIComponent(option.query.share_path);
+            }
+        }
+        // 更新场景值，从分享进去等操作。
+        if (option.scene) {
+            baseConfig.system.scene = options.scene;
+        }
+    })
+    APP(app);
+};
+// 
+let hookListNot = ["data", "onLoad", "onShow", "onReady", "onPullDownRefresh", "onReachBottom", "onShareAppMessage", "onPageScroll", "onResize", "onTabItemTap", "onHide", "onUnload"]
+
+function hookMethods (methods) {
+    appFn(methods, 'onShow', ark_sdk.startUp)
+    if (baseConfig.base.autoShare == true) {
+        appFn(methods, 'onShareAppMessage', ark_sdk.share);
+    }
+    if (baseConfig.base.autoTrack == true) {
+        for (var i in methods) {
+            if (Util.paramType(methods[i]) == "Function" && hookListNot.indexOf(i) < 0) {
+                appFn(methods, i, userClick);
+            }
+            if (Util.paramType(methods[i]) == "Function" && i == "onTabItemTap") {
+                appFn(methods, i, userClickPage);
+            }
+        }
+    }
+}
+
+let PAGE = Page;
+Page = function (page) {
+    hookMethods(page)
+    PAGE(page);
+};
+
+// hook Component
+let COMPONENT = Component
+Component = function (component) {
+    if (component.methods) {
+        hookMethods(component.methods)
+    }
+    COMPONENT(component)
+}
+
+
 export default ark_sdk

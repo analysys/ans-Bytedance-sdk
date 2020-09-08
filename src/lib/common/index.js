@@ -145,7 +145,7 @@ class Util {
     }
     keyValueToObje (key, value) {
         var obj = {}
-        obj[key] = value || ""
+        obj[key] = value
         return obj
     }
     toObj (param1, param2, level) {
