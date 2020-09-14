@@ -52,11 +52,33 @@ export default [{
                 })
             ]
         }, {
+            file: './taroDemo/src/sdk/AnalysysAgent_ByteDance_SDK.es6.min.js',
+            format: 'esm',
+            name: 'Ans',
+            plugins: [
+                terser({
+                    mangle: {
+                        toplevel: true
+                    }
+                })
+            ]
+        }, {
             file: './SDK/AnalysysAgent_ByteDance_SDK.min.js',
             format: 'cjs',
             name: 'Ans',
             plugins: [
                 uglify({
+                    mangle: {
+                        toplevel: true
+                    }
+                })
+            ]
+        }, {
+            file: './SDK/AnalysysAgent_ByteDance_SDK.es6.min.js',
+            format: 'esm',
+            name: 'Ans',
+            plugins: [
+                terser({
                     mangle: {
                         toplevel: true
                     }
@@ -113,11 +135,33 @@ export default [{
                 })
             ]
         }, {
+            file: './taroDemo/src/sdk/AnalysysAgent_ByteDance_SDK.custom.es6.min.js',
+            format: 'esm',
+            name: 'Ans',
+            plugins: [
+                terser({
+                    mangle: {
+                        toplevel: true
+                    }
+                })
+            ]
+        }, {
             file: './SDK/AnalysysAgent_ByteDance_SDK.custom.min.js',
             format: 'cjs',
             name: 'Ans',
             plugins: [
                 uglify({
+                    mangle: {
+                        toplevel: true
+                    }
+                })
+            ]
+        }, {
+            file: './SDK/AnalysysAgent_ByteDance_SDK.custom.es6.min.js',
+            format: 'esm',
+            name: 'Ans',
+            plugins: [
+                terser({
                     mangle: {
                         toplevel: true
                     }

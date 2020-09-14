@@ -25,6 +25,26 @@ export default [{
                     toplevel: true
                 }
             })]
+        }, {
+            file: './SDK/AnalysysAgent_encryption.min.js',
+            format: 'cjs',
+            name: 'Ans',
+            plugins: [uglify({
+                'mangle': {
+                    toplevel: true
+                }
+            })]
+        }, {
+            file: './SDK/AnalysysAgent_encryption.es6.min.js',
+            format: 'esm',
+            name: 'Ans',
+            plugins: [
+                terser({
+                    mangle: {
+                        toplevel: true
+                    }
+                })
+            ]
         }
     ],
     plugins: [
